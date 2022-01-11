@@ -1,8 +1,13 @@
-(ns microservice-boilerplate.schemas.wire-out
-  (:require [schema.core :as s]))
+(ns microservice-boilerplate.schemas.wire-out)
 
-(s/defschema CoinDeskResponse
-  {:bpi {:USD {:rate_float s/Num
-               s/Any s/Any}
-         s/Any s/Any}
-   s/Any s/Any})
+(def RateFloat
+  [:map
+   [:rate_float number?]])
+
+(def USD
+  [:map
+   [:USD RateFloat]])
+
+(def CoinDeskResponse
+  [:map
+   [:bpi USD]])
