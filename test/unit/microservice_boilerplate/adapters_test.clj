@@ -2,14 +2,13 @@
   (:require [clojure.test :refer [deftest is testing use-fixtures]]
             [clojure.test.check.clojure-test :refer [defspec]]
             [clojure.test.check.properties :as properties]
+            [malli.core :as m]
+            [malli.generator :as mg]
             [matcher-combinators.matchers :as matchers]
             [matcher-combinators.test :refer [match?]]
             [microservice-boilerplate.adapters :as adapters]
             [microservice-boilerplate.schemas.db :as schemas.db]
-            [microservice-boilerplate.schemas.types :as schemas.types]
             [microservice-boilerplate.schemas.wire-in :as schemas.wire-in]
-            [schema-generators.generators :as g]
-            [schema.core :as s]
             [schema.test :as schema.test]))
 
 (use-fixtures :once schema.test/validate-schemas)
@@ -43,15 +42,15 @@
                 (adapters/wire->usd-price coindesk-response-fixture)))))
 
 (defspec wire-in-db-test 50
-  (properties/for-all [id (g/generator s/Uuid)
-                       pos-num (g/generator schemas.types/PositiveNumber schemas.types/TypesLeafGenerators)
-                       neg-num (g/generator schemas.types/NegativeNumber schemas.types/TypesLeafGenerators)]
-                      (s/validate schemas.db/WalletTransaction (adapters/withdrawal->db id neg-num pos-num))
-                      (s/validate schemas.db/WalletTransaction (adapters/deposit->db id pos-num pos-num))))
+  (properties/for-all [id (mg/generator :uuid)
+                       pos-num (mg/generator [:double {:min 1 :max 999999}])
+                       neg-num (mg/generator [:double {:min -9999 :max -1}])]
+                      (m/validate schemas.db/WalletTransaction (adapters/withdrawal->db id neg-num pos-num))
+                      (m/validate schemas.db/WalletTransaction (adapters/deposit->db id pos-num pos-num))))
 
 (defspec db-wire-in-test 50
-  (properties/for-all [wallet-db (g/generator schemas.db/WalletEntry schemas.types/TypesLeafGenerators)]
-                      (s/validate schemas.wire-in/WalletEntry (adapters/db->wire-in wallet-db))))
+  (properties/for-all [wallet-db (mg/generator schemas.db/WalletEntry {:gen/infinite? false})]
+                      (m/validate schemas.wire-in/WalletEntry (adapters/db->wire-in wallet-db))))
 
 (def wallet-entry-1
   #:wallet{:id #uuid "ecdcf860-0c2a-3abf-9af1-a70e770cea9a"

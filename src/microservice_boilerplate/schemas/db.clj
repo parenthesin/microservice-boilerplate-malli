@@ -4,8 +4,8 @@
 (def wallet
   [:map 
    [:wallet/id uuid?]
-   [:wallet/btc_amount number?]
-   [:wallet/usd_amount_at number?]
+   [:wallet/btc_amount [:double {:min -9999999 :max 9999999}]]
+   [:wallet/usd_amount_at [:double {:min -9999999 :max 9999999}]]
    [:wallet/created_at inst?]])
 
 (def WalletTransaction
