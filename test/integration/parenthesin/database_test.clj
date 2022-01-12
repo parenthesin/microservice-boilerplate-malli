@@ -1,13 +1,13 @@
 (ns integration.parenthesin.database-test
-  (:require [clojure.test :as clojure.test]
+  (:require [clojure.test :refer [use-fixtures]]
             [integration.parenthesin.util :as util]
             [integration.parenthesin.util.database :as util.database]
-            [schema.test :as schema.test]
+            [parenthesin.utils :as u]
             [state-flow.api :refer [defflow]]
             [state-flow.assertions.matcher-combinators :refer [match?]]
             [state-flow.core :as state-flow :refer [flow]]))
 
-(clojure.test/use-fixtures :once schema.test/validate-schemas)
+(use-fixtures :once u/with-malli-intrumentation)
 
 (defflow
   flow-integration-database-test

@@ -2,7 +2,7 @@
   (:require [com.stuartsierra.component :as component]
             [muuntaja.core :as m]
             [parenthesin.logs :as logs]
-            [reitit.coercion.schema :as reitit.schema]
+            [reitit.coercion.malli :as reitit.malli]
             [reitit.dev.pretty :as pretty]
             [reitit.http :as http]
             [reitit.http.coercion :as coercion]
@@ -34,7 +34,7 @@
      ;;:validate spec/validate ;; enable spec validation for route data
      ;;:reitit.spec/wrap spell/closed ;; strict top-level validation
    :exception pretty/exception
-   :data {:coercion reitit.schema/coercion
+   :data {:coercion reitit.malli/coercion
           :muuntaja (m/create
                      (-> m/default-options
                          (assoc-in [:formats "application/json" :decoder-opts :bigdecimals] true)))

@@ -45,4 +45,15 @@
                                                                                                             {:op :rest,
                                                                                                              :spec :any}],
                                                                                                      :ret :any,
-                                                                                                     :min-arity 1}}}}}}}}
+                                                                                                     :min-arity 1}}}},
+                                        microservice-boilerplate.controllers {do-withdrawal! {:arities {2 {:args [:neg-int
+                                                                                                                  {:op :keys,
+                                                                                                                   :req {:config :any,
+                                                                                                                         :http :any,
+                                                                                                                         :router :any,
+                                                                                                                         :database :any}}],
+                                                                                                           :ret {:op :keys,
+                                                                                                                 :req {:wallet/id :any,
+                                                                                                                       :wallet/btc_amount :double,
+                                                                                                                       :wallet/usd_amount_at :double,
+                                                                                                                       :wallet/created_at :any}}}}}}}}}}
