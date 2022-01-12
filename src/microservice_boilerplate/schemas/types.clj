@@ -5,26 +5,6 @@
             [parenthesin.components.http :as components.http])
   (:import [java.time LocalDateTime ZoneId]))
 
-; (def PositiveNumber
-;   (s/constrained s/Num pos? 'PositiveNumber))
-
-; (def PositiveNumberGenerator
-;   (generators/fmap bigdec (generators/double* {:infinite? false :NaN? false :min 0.0001})))
-
-; (def NegativeNumber
-;   (s/constrained s/Num neg? 'NegativeNumber))
-
-; (def NegativeNumberGenerator
-;   (generators/fmap bigdec (generators/double* {:infinite? false :NaN? false :max -0.0001})))
-
-; (def NumberGenerator
-;   (generators/fmap bigdec (generators/double* {:infinite? false :NaN? false})))
-
-; (def TypesLeafGenerators
-;   {PositiveNumber PositiveNumberGenerator
-;    NegativeNumber NegativeNumberGenerator
-;    s/Num NumberGenerator})
-
 (def HttpComponent
   (m/-simple-schema
    {:type :http-component
