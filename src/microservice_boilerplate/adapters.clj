@@ -2,8 +2,7 @@
   (:require [microservice-boilerplate.schemas.db :as schemas.db]
             [microservice-boilerplate.schemas.types :as schemas.types]
             [microservice-boilerplate.schemas.wire-in :as schemas.wire-in]
-            [microservice-boilerplate.schemas.wire-out :as schemas.wire-out]
-            [schema.core :as s])
+            [microservice-boilerplate.schemas.wire-out :as schemas.wire-out])
   (:import [java.time ZoneId]
            [java.time.format DateTimeFormatter]))
 

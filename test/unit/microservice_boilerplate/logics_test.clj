@@ -2,14 +2,14 @@
   (:require [clojure.test :refer [are deftest is testing use-fixtures]]
             [clojure.test.check.clojure-test :refer [defspec]]
             [clojure.test.check.properties :as properties]
+            [malli.core :as m]
+            [malli.generator :as mg]
             [microservice-boilerplate.adapters :as adapters]
             [microservice-boilerplate.logics :as logics]
             [microservice-boilerplate.schemas.db :as schemas.db]
-            [schema-generators.generators :as g]
-            [schema.core :as s]
-            [schema.test :as schema.test]))
+            [parenthesin.utils :as u]))
 
-(use-fixtures :once schema.test/validate-schemas)
+(use-fixtures :once u/with-malli-intrumentation)
 
 (deftest uuid-from-string-test
   (testing "should generate the same uuid based on the seeded string"
@@ -41,10 +41,10 @@
            (logics/uuid-from-date-amount #inst "2020-10-23T22:30:34" -123.00M)))))
 
 (defspec wallet-entry-test 50
-  (properties/for-all [date (g/generator s/Inst)
-                       pos-num (g/generator pos?)
-                       neg-num (g/generator neg?)]
-                      (s/validate schemas.db/WalletTransaction (logics/->wallet-transaction date neg-num pos-num))))
+  (properties/for-all [date (mg/generator inst?)
+                       pos-num (mg/generator [:double])
+                       neg-num (mg/generator [:double])]
+                      (m/validate schemas.db/WalletTransaction (logics/->wallet-transaction date neg-num pos-num))))
 
 (deftest can-withdrawal-test
   (testing "checks can-withdrawal? logic"
