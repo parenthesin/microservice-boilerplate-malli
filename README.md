@@ -1,8 +1,6 @@
 # microservice-boilerplate-malli
 Clojure Microservice Boilerplate: Components, Reitit, Pedestal, Malli, Postgresql and Tests.
 
-Based on [this](https://github.com/parenthesin/microservice-boilerplate) template, the work here tries to show what need to be refactored to move from Schema to Malli without loosing some key features like "typing", schema definition, coercion, generative testing and more. 
-
 ## About this example
 This source is a combination of two namespaces
 
@@ -27,10 +25,17 @@ To open a nrepl with all test extra-deps on it
 clj -M:test:nrepl
 ```
 ## Run dev
-Evaluate dev/user.clj and then
+To open a dev nrepl
+```bash
+clj -M:dev:nrepl
+
+```
+
+Then, eval
 ```
 (start)
 ```
+
 ## Run Tests
 To run unit tests inside `./test/unit`
 ```bash
@@ -147,6 +152,8 @@ java -jar service.jar
 ```
 
 ## Related
+
+Based on [this](https://github.com/parenthesin/microservice-boilerplate) template, the work here tries to show what need to be refactored to move from Schema to Malli without loosing some key features like "typing", schema definition, coercion, generative testing and more. 
 
 ### Similar Projects
 - [vloth/ts-microservice-boilerplate](https://github.com/vloth/ts-microservice-boilerplate)
