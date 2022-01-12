@@ -21,7 +21,7 @@
      :usd-price current-usd-price}))
 
 (defn do-deposit!
-  {:malli/schema [:=> [:cat pos? schemas.types/Components]]}
+  {:malli/schema [:=> [:cat pos? schemas.types/Components] schemas.db/WalletEntry]}
   [btc {:keys [http database]}]
   (let [now (instant-now)
         current-usd-price (http-out/get-btc-usd-price http)

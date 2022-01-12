@@ -60,3 +60,4 @@
     {:entries (mapv db->wire-in wallet-entries)
      :total-btc (bigdec total-btc)
      :total-current-usd (bigdec (* current-usd-price total-btc))}))
+
