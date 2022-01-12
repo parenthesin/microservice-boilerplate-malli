@@ -1,6 +1,7 @@
 {:config-paths ["com.github.seancorfield/next.jdbc"
                 "nubank/state-flow"
-                "marick/midje"]
+                "marick/midje"
+                "metosin/malli-types"]
  :hooks {:analyze-call {integration.microservice-boilerplate.aux/init-flow nubank.state-flow/defflow
                         state-flow.api/defflow nubank.state-flow/defflow}}
  :linters {:unsorted-required-namespaces {:level :warning}
