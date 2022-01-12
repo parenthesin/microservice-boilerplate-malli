@@ -2,17 +2,16 @@
   (:require [clj-http.client :as http]
             [clj-http.util :as http-util]
             [com.stuartsierra.component :as component]
-            [parenthesin.logs :as logs]
-            [schema.core :as s]))
+            [parenthesin.logs :as logs]))
 
-(s/defschema HttpRequestInput
-  {:url s/Str
-   :method (apply s/enum #{:get :head :post :put :delete :options :copy :move :patch})
-   s/Any s/Any})
+(def HttpRequestInput
+  [:map
+   [:url :string]
+   [:method [:enum :get :head :post :put :delete :options :copy :move :patch]]])
 
-(s/defn request-fn
-  [{:keys [url] :as req} :- HttpRequestInput
-   & [respond raise]]
+(defn request-fn
+  {:malli/schema [:=> [:cat HttpRequestInput [:* :any] [:* :any]] :any]}
+  [{:keys [url] :as req} & [respond raise]]
   (http/check-url! url)
   (if (http-util/opt req :async)
     (if (some nil? [respond raise])

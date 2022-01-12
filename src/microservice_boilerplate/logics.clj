@@ -27,7 +27,7 @@
    :wallet/usd_amount_at (* current-usd-price amount)})
 
 (defn can-withdrawal?
-  {:malli/schema [:=> [:cat schemas.types/NegativeNumber schemas.types/PositiveNumber] :bool]}
+  {:malli/schema [:=> [:cat neg? pos?] :bool]}
   [withdrawal-amount current-total]
   (-> (+ current-total withdrawal-amount)
       (>= 0)))

@@ -2,7 +2,8 @@
   (:require [malli.util :as mu]))
 
 (def wallet
-  [:map [:wallet/id uuid?]
+  [:map 
+   [:wallet/id uuid?]
    [:wallet/btc_amount number?]
    [:wallet/usd_amount_at number?]
    [:wallet/created_at inst?]])

@@ -4,27 +4,28 @@
             [malli.core :as m]
             [parenthesin.components.database :as components.database]
             [parenthesin.components.http :as components.http]
-            [schema.core :as s]))
+            [schema.core :as s])
+  (:import [java.time LocalDateTime ZoneId]))
 
-(def PositiveNumber
-  (s/constrained s/Num pos? 'PositiveNumber))
+; (def PositiveNumber
+;   (s/constrained s/Num pos? 'PositiveNumber))
 
-(def PositiveNumberGenerator
-  (generators/fmap bigdec (generators/double* {:infinite? false :NaN? false :min 0.0001})))
+; (def PositiveNumberGenerator
+;   (generators/fmap bigdec (generators/double* {:infinite? false :NaN? false :min 0.0001})))
 
-(def NegativeNumber
-  (s/constrained s/Num neg? 'NegativeNumber))
+; (def NegativeNumber
+;   (s/constrained s/Num neg? 'NegativeNumber))
 
-(def NegativeNumberGenerator
-  (generators/fmap bigdec (generators/double* {:infinite? false :NaN? false :max -0.0001})))
+; (def NegativeNumberGenerator
+;   (generators/fmap bigdec (generators/double* {:infinite? false :NaN? false :max -0.0001})))
 
-(def NumberGenerator
-  (generators/fmap bigdec (generators/double* {:infinite? false :NaN? false})))
+; (def NumberGenerator
+;   (generators/fmap bigdec (generators/double* {:infinite? false :NaN? false})))
 
-(def TypesLeafGenerators
-  {PositiveNumber PositiveNumberGenerator
-   NegativeNumber NegativeNumberGenerator
-   s/Num NumberGenerator})
+; (def TypesLeafGenerators
+;   {PositiveNumber PositiveNumberGenerator
+;    NegativeNumber NegativeNumberGenerator
+;    s/Num NumberGenerator})
 
 (def HttpComponent
   (m/-simple-schema
@@ -43,6 +44,18 @@
    {:type :generic-component
     :pred #(satisfies? component/Lifecycle %)
     :type-properties {:error/message "should satisfy com.stuartsierra.component/Lifecycle protocol."}}))
+
+(def JavaLocalDateTime
+  (m/-simple-schema
+   {:type :localdatetime
+    :pred #(instance? LocalDateTime %)
+    :type-properties {:error/message "should be an instance of LocalDateTime."}}))
+
+(def JavaZoneId
+  (m/-simple-schema
+   {:type :zone-id
+    :pred #(instance? ZoneId %)
+    :type-properties {:error/message "should be an instance of ZoneId."}}))
 
 (def Components
   [:map

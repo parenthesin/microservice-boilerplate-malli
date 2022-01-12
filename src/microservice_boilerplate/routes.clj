@@ -17,20 +17,20 @@
     ["/history"
      {:get {:summary "get all wallet entries and current total"
             :responses {200 {:body schemas.wire-in/WalletHistory}
-                        500 {:body s/Str}}
+                        500 {:body :string}}
             :handler ports.http-in/get-history}}]
     ["/deposit"
      {:post {:summary "do a deposit in btc in the wallet"
              :parameters {:body schemas.wire-in/WalletDeposit}
              :responses {201 {:body schemas.wire-in/WalletEntry}
-                         400 {:body s/Str}
-                         500 {:body s/Str}}
+                         400 {:body :string}
+                         500 {:body :string}}
              :handler ports.http-in/do-deposit!}}]
 
     ["/withdrawal"
      {:post {:summary "do a withdrawal in btc in the wallet if possible"
              :parameters {:body schemas.wire-in/WalletWithdrawal}
              :responses {201 {:body schemas.wire-in/WalletEntry}
-                         400 {:body s/Str}
-                         500 {:body s/Str}}
+                         400 {:body :string}
+                         500 {:body :string}}
              :handler ports.http-in/do-withdrawal!}}]]])

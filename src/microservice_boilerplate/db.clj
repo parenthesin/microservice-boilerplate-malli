@@ -3,12 +3,11 @@
             [honey.sql.helpers :as sql.helpers]
             [microservice-boilerplate.schemas.db :as schemas.db]
             [microservice-boilerplate.schemas.types :as schemas.types]
-            [parenthesin.components.database :as components.database]
-            [schema.core :as s]))
+            [parenthesin.components.database :as components.database]))
 
-(s/defn insert-wallet-transaction
-  [transaction :- schemas.db/WalletTransaction
-   db :- schemas.types/DatabaseComponent]
+(defn insert-wallet-transaction
+  {:malli/schema [:=> [:cat schemas.db/WalletTransaction schemas.types/DatabaseComponent] :any]}
+  [transaction db]
   (->> (-> (sql.helpers/insert-into :wallet)
            (sql.helpers/values [transaction])
            (sql.helpers/returning :*)
@@ -16,16 +15,18 @@
        (components.database/execute db)
        first))
 
-(s/defn get-wallet-all-transactions :- [schemas.db/WalletEntry]
-  [db :- schemas.types/DatabaseComponent]
+(defn get-wallet-all-transactions
+  {:malli/schema [:=> [:cat schemas.types/DatabaseComponent] [:vector schemas.db/WalletEntry]]}
+  [db]
   (components.database/execute
    db
    (-> (sql.helpers/select :id :btc_amount :usd_amount_at :created_at)
        (sql.helpers/from :wallet)
        sql/format)))
 
-(s/defn get-wallet-total :- s/Num
-  [db :- schemas.types/DatabaseComponent]
+(defn get-wallet-total
+  {:malli/schema [:=> [:cat schemas.types/DatabaseComponent] number?]}
+  [db]
   (->> (-> (sql.helpers/select :%sum.btc_amount)
            (sql.helpers/from :wallet)
            sql/format)
