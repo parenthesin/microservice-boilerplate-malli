@@ -1,26 +1,29 @@
 (ns integration.parenthesin.webserver-test
-  (:require [clojure.test :as clojure.test]
+  (:require [clojure.test :refer [use-fixtures]]
             [integration.parenthesin.util :as util]
             [integration.parenthesin.util.webserver :as util.webserver]
-            [schema.core :as s]
-            [schema.test :as schema.test]
+            [parenthesin.utils :as u]
             [state-flow.api :refer [defflow]]
             [state-flow.assertions.matcher-combinators :refer [match?]]
             [state-flow.core :as state-flow :refer [flow]]))
 
-(clojure.test/use-fixtures :once schema.test/validate-schemas)
+(use-fixtures :once u/with-malli-intrumentation)
 
 (def test-routes
   [["/plus"
     {:get {:summary "plus with spec query parameters"
-           :parameters {:query {:x s/Int, :y s/Int}}
-           :responses {200 {:body {:total s/Int}}}
+           :parameters {:query [:map
+                                [:x :int]
+                                [:y :int]]}
+           :responses {200 {:body [:map [:total :int]]}}
            :handler (fn [{{{:keys [x y]} :query} :parameters}]
                       {:status 200
                        :body {:total (+ x y)}})}
      :post {:summary "plus with spec body parameters"
-            :parameters {:body {:x s/Int, :y s/Int}}
-            :responses {200 {:body {:total s/Int}}}
+            :parameters {:body [:map
+                                [:x :int]
+                                [:y :int]]}
+            :responses {200 {:body [:map [:total :int]]}}
             :handler (fn [{{{:keys [x y]} :body} :parameters}]
                        {:status 200
                         :body {:total (+ x y)}})}}]])

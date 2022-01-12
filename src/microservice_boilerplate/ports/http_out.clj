@@ -1,11 +1,11 @@
 (ns microservice-boilerplate.ports.http-out
   (:require [microservice-boilerplate.adapters :as adapters.price]
             [microservice-boilerplate.schemas.types :as schemas.types]
-            [parenthesin.components.http :as components.http]
-            [schema.core :as s]))
+            [parenthesin.components.http :as components.http]))
 
-(s/defn get-btc-usd-price :- s/Num
-  [http :- schemas.types/HttpComponent]
+(defn get-btc-usd-price
+  {:malli/schema [:=> [:cat schemas.types/HttpComponent] number?]}
+  [http]
   (->> {:url "https://api.coindesk.com/v1/bpi/currentprice.json"
         :as :json
         :method :get}

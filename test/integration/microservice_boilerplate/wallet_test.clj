@@ -1,5 +1,5 @@
 (ns integration.microservice-boilerplate.wallet-test
-  (:require [clojure.test :as clojure.test]
+  (:require [clojure.test :refer [use-fixtures]]
             [com.stuartsierra.component :as component]
             [integration.microservice-boilerplate.util :as util]
             [integration.parenthesin.util.http :as util.http]
@@ -11,12 +11,12 @@
             [parenthesin.components.http :as components.http]
             [parenthesin.components.router :as components.router]
             [parenthesin.components.webserver :as components.webserver]
-            [schema.test :as schema.test]
+            [parenthesin.utils :as u]
             [state-flow.api :refer [defflow]]
             [state-flow.assertions.matcher-combinators :refer [match?]]
             [state-flow.core :as state-flow :refer [flow]]))
 
-(clojure.test/use-fixtures :once schema.test/validate-schemas)
+(use-fixtures :once u/with-malli-intrumentation)
 
 (defn- create-and-start-components! []
   (component/start-system

@@ -1,5 +1,5 @@
-# microservice-boilerplate
-Clojure Microservice Boilerplate: Components, Reitit, Pedestal, Malli, Postgresql and Tests
+# microservice-boilerplate-malli
+Clojure Microservice Boilerplate: Components, Reitit, Pedestal, Malli, Postgresql and Tests.
 
 ## About this example
 This source is a combination of two namespaces
@@ -23,6 +23,18 @@ clj -M:nrepl
 To open a nrepl with all test extra-deps on it
 ```bash
 clj -M:test:nrepl
+```
+## Run dev
+To open a dev nrepl
+```bash
+clj -M:dev:nrepl
+
+```
+
+Then, eval for instrument malli.
+Malli instrumentation enables input/output validation and clj-kondo lint annotations.
+```
+(start)
 ```
 
 ## Run Tests
@@ -99,7 +111,7 @@ java -jar service.jar
 ## Features
 
 ### System
-- [schema](https://github.com/plumatic/schema) Types and Schemas
+- [malli](https://github.com/metosin/malli) Types, Schemas and generators.
 - [component](https://github.com/stuartsierra/component) System Lifecycle and Dependencies
 - [pedestal](https://github.com/pedestal/pedestal) Http Server
 - [reitit](https://github.com/metosin/reitit) Http Routes System 
@@ -114,7 +126,6 @@ java -jar service.jar
 ### Tests & Checks
 - [kaocha](https://github.com/lambdaisland/kaocha) Test runner
 - [kaocha-cloverage](https://github.com/lambdaisland/kaocha-cloverage) Kaocha plugin for code coverage reports
-- [schema-generators](https://github.com/plumatic/schema-generators) Data generation and generative testing
 - [state-flow](https://github.com/nubank/state-flow) Testing framework for integration tests
 - [matcher-combinators](https://github.com/nubank/matcher-combinators) Assertions in data structures
 - [pg-embedded-clj](https://github.com/Bigsy/pg-embedded-clj) Embedded PostgreSQL for integration tests
@@ -142,6 +153,8 @@ java -jar service.jar
 ```
 
 ## Related
+
+Based on [this](https://github.com/parenthesin/microservice-boilerplate) template, the work here tries to show what need to be refactored to move from Schema to Malli without loosing some key features like "typing", schema definition, coercion, generative testing and more. 
 
 ### Similar Projects
 - [vloth/ts-microservice-boilerplate](https://github.com/vloth/ts-microservice-boilerplate)

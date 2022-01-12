@@ -1,19 +1,22 @@
-(ns microservice-boilerplate.schemas.wire-in
-  (:require [schema.core :as s]))
+(ns microservice-boilerplate.schemas.wire-in)
 
-(s/defschema WalletDeposit
-  {:btc s/Num})
+(def WalletDeposit
+  [:map
+   [:btc number?]])
 
-(s/defschema WalletWithdrawal
-  {:btc s/Num})
+(def WalletWithdrawal
+  [:map
+   [:btc number?]])
 
-(s/defschema WalletEntry
-  {:id s/Uuid
-   :btc-amount s/Num
-   :usd-amount-at s/Num
-   :created-at s/Inst})
+(def WalletEntry
+  [:map
+   [:id uuid?]
+   [:btc-amount number?]
+   [:usd-amount-at number?]
+   [:created-at inst?]])
 
-(s/defschema WalletHistory
-  {:entries [WalletEntry]
-   :total-btc s/Num
-   :total-current-usd s/Num})
+(def WalletHistory
+  [:map
+   [:entries [:vector WalletEntry]]
+   [:total-btc number?]
+   [:total-current-usd number?]])

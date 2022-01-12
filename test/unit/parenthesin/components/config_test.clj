@@ -3,9 +3,9 @@
             [com.stuartsierra.component :as component]
             [matcher-combinators.test :refer [match?]]
             [parenthesin.components.config :as components.config]
-            [schema.test :as schema.test]))
+            [parenthesin.utils :as u]))
 
-(use-fixtures :once schema.test/validate-schemas)
+(use-fixtures :once u/with-malli-intrumentation)
 
 (defn- create-and-start-system!
   [{:keys [config]}]

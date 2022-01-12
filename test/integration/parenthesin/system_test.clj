@@ -1,18 +1,17 @@
 (ns integration.parenthesin.system-test
-  (:require [clojure.test :as clojure.test]
+  (:require [clojure.test :refer [use-fixtures]]
             [integration.parenthesin.util :as aux]
             [integration.parenthesin.util.database :as util.database]
             [integration.parenthesin.util.http :as util.http]
             [integration.parenthesin.util.webserver :as util.webserver]
             [parenthesin.components.database :as components.database]
             [parenthesin.components.http :as components.http]
-            [schema.core :as s]
-            [schema.test :as schema.test]
+            [parenthesin.utils :as u]
             [state-flow.api :refer [defflow]]
             [state-flow.assertions.matcher-combinators :refer [match?]]
             [state-flow.core :as state-flow :refer [flow]]))
 
-(clojure.test/use-fixtures :once schema.test/validate-schemas)
+(use-fixtures :once u/with-malli-intrumentation)
 
 (defn do-deposit!
   [{{{:keys [btc]} :body} :parameters
@@ -39,13 +38,13 @@
 
     ["/deposit"
      {:post {:summary "deposit btc and return value in usd"
-             :parameters {:body {:btc s/Num}}
-             :responses {201 {:body {:usd s/Num}}}
+             :parameters {:body [:map [:btc :double]]}
+             :responses {201 {:body [:map [:usd :double]]}}
              :handler do-deposit!}}]
 
     ["/list"
      {:get {:summary "list deposits in wallet"
-            :responses {200 {:body [{:id s/Int :amount BigDecimal}]}}
+            :responses {200 {:body [:vector [:map [:id :int] [:amount decimal?]]]}}
             :handler get-wallet}}]]])
 
 (defflow

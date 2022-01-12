@@ -1,34 +1,32 @@
 (ns microservice-boilerplate.logics
   (:require [microservice-boilerplate.adapters :as adapters]
-            [microservice-boilerplate.schemas.db :as schemas.db]
-            [microservice-boilerplate.schemas.types :as schemas.types]
-            [schema.core :as s])
+            [microservice-boilerplate.schemas.db :as schemas.db])
   (:import [java.util UUID]))
 
-(s/defn uuid-from-string :- s/Uuid
-  [seed :- s/Str]
+(defn uuid-from-string
+  {:malli/schema [:=> [:cat :string] :uuid]}
+  [seed]
   (-> seed
       .getBytes
       UUID/nameUUIDFromBytes))
 
-(s/defn uuid-from-date-amount :- s/Uuid
-  [date :- s/Inst
-   amount :- s/Num]
+(defn uuid-from-date-amount
+  {:malli/schema [:=> [:cat inst? :double] :uuid]}
+  [date amount]
   (-> date
       (adapters/inst->utc-formated-string "yyyy-MM-dd hh:mm:ss")
       (str amount)
       uuid-from-string))
 
-(s/defn ->wallet-transaction :- schemas.db/WalletTransaction
-  [date :- s/Inst
-   amount :- s/Num
-   current-usd-price :- schemas.types/PositiveNumber]
-  #:wallet{:id (uuid-from-date-amount date amount)
-           :btc_amount amount
-           :usd_amount_at (* current-usd-price amount)})
+(defn ->wallet-transaction
+  {:malli/schema [:=> [:cat inst? :double :double] schemas.db/WalletTransaction]}
+  [date amount current-usd-price]
+  {:wallet/id (uuid-from-date-amount date amount)
+   :wallet/btc_amount amount
+   :wallet/usd_amount_at (* current-usd-price amount)})
 
-(s/defn can-withdrawal? :- s/Bool
-  [withdrawal-amount :- schemas.types/NegativeNumber
-   current-total :- schemas.types/PositiveNumber]
+(defn can-withdrawal?
+  {:malli/schema [:=> [:cat neg? pos?] :bool]}
+  [withdrawal-amount current-total]
   (-> (+ current-total withdrawal-amount)
       (>= 0)))

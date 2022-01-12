@@ -1,17 +1,17 @@
 (ns integration.microservice-boilerplate.db-test
-  (:require [clojure.test :as clojure.test]
+  (:require [clojure.test :refer [use-fixtures]]
             [com.stuartsierra.component :as component]
             [integration.microservice-boilerplate.util :as util]
             [microservice-boilerplate.db :as db]
             [parenthesin.components.config :as components.config]
             [parenthesin.components.database :as components.database]
-            [schema.test :as schema.test]
+            [parenthesin.utils :as u]
             [state-flow.api :refer [defflow]]
             [state-flow.assertions.matcher-combinators :refer [match?]]
             [state-flow.core :as state-flow :refer [flow]]
             [state-flow.state :as state]))
 
-(clojure.test/use-fixtures :once schema.test/validate-schemas)
+(use-fixtures :once u/with-malli-intrumentation)
 
 (defn- create-and-start-components! []
   (component/start-system
