@@ -31,7 +31,8 @@ clj -M:dev:nrepl
 
 ```
 
-Then, eval
+Then, eval for instrument malli.
+Malli instrumentation enables input/output validation and clj-kondo lint annotations.
 ```
 (start)
 ```
