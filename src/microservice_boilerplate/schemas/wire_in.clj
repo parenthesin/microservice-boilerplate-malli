@@ -1,5 +1,4 @@
-(ns microservice-boilerplate.schemas.wire-in
-  (:require [schema.core :as s]))
+(ns microservice-boilerplate.schemas.wire-in)
 
 (def WalletDeposit
   [:map

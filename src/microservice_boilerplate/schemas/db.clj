@@ -2,7 +2,7 @@
   (:require [malli.util :as mu]))
 
 (def wallet
-  [:map 
+  [:map
    [:wallet/id uuid?]
    [:wallet/btc_amount [:double {:gen/NaN? false :gen/infinite? false}]]
    [:wallet/usd_amount_at [:double {:gen/NaN? false :gen/infinite? false}]]

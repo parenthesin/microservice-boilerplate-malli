@@ -1,8 +1,7 @@
 (ns microservice-boilerplate.routes
   (:require [microservice-boilerplate.ports.http-in :as ports.http-in]
             [microservice-boilerplate.schemas.wire-in :as schemas.wire-in]
-            [reitit.swagger :as swagger]
-            [schema.core :as s]))
+            [reitit.swagger :as swagger]))
 
 (def routes
   [["/swagger.json"

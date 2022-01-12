@@ -1,10 +1,8 @@
 (ns microservice-boilerplate.schemas.types
-  (:require [clojure.test.check.generators :as generators]
-            [com.stuartsierra.component :as component]
+  (:require [com.stuartsierra.component :as component]
             [malli.core :as m]
             [parenthesin.components.database :as components.database]
-            [parenthesin.components.http :as components.http]
-            [schema.core :as s])
+            [parenthesin.components.http :as components.http])
   (:import [java.time LocalDateTime ZoneId]))
 
 ; (def PositiveNumber
