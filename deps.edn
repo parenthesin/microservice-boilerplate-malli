@@ -37,11 +37,12 @@
 
   :migratus {:main-opts ["-m" "parenthesin.migrations"]}
 
-  :uberjar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.303"}}
-            :exec-fn hf.depstar/uberjar
-            :exec-args {:jar "service.jar"
-                        :aot true
-                        :main-class microservice-boilerplate.server}}
+  :uberjar {:deps {io.github.seancorfield/build-clj
+                   {:git/tag "v0.8.3" :git/sha "7ac1f8d"
+                    :deps/root "slim"}}
+            :exec-fn org.corfield.build/uber
+            :exec-args {:main microservice-boilerplate.server
+                        :uber-file "target/service.jar"}}
 
   :nrepl {:extra-deps {cider/cider-nrepl {:mvn/version "0.28.6"}}
           :main-opts ["-m" "nrepl.cmdline" "--middleware" "[cider.nrepl/cider-middleware]"]}}}
