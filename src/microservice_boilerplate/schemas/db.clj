@@ -3,9 +3,9 @@
 
 (def wallet
   [:map
-   [:wallet/id uuid?]
-   [:wallet/btc_amount [:double {:gen/NaN? false :gen/infinite? false}]]
-   [:wallet/usd_amount_at [:double {:gen/NaN? false :gen/infinite? false}]]
+   [:wallet/id :uuid]
+   [:wallet/btc_amount [number? {:gen/schema [:double {:gen/NaN? false :gen/infinite? false}]}]]
+   [:wallet/usd_amount_at [number? {:gen/schema [:double {:gen/NaN? false :gen/infinite? false}]}]]
    [:wallet/created_at inst?]])
 
 (def WalletTransaction

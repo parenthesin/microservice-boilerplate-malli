@@ -11,7 +11,7 @@
       UUID/nameUUIDFromBytes))
 
 (defn uuid-from-date-amount
-  {:malli/schema [:=> [:cat inst? :double] :uuid]}
+  {:malli/schema [:=> [:cat inst? number?] :uuid]}
   [date amount]
   (-> date
       (adapters/inst->utc-formated-string "yyyy-MM-dd hh:mm:ss")
@@ -19,7 +19,7 @@
       uuid-from-string))
 
 (defn ->wallet-transaction
-  {:malli/schema [:=> [:cat inst? :double :double] schemas.db/WalletTransaction]}
+  {:malli/schema [:=> [:cat inst? number? number?] schemas.db/WalletTransaction]}
   [date amount current-usd-price]
   {:wallet/id (uuid-from-date-amount date amount)
    :wallet/btc_amount amount

@@ -6,6 +6,6 @@
   "Wraps f ensuring there has malli collect and instrument started before running it"
   [f]
   (mi/collect! {:ns (all-ns)})
-  (mi/instrument! {:report (pretty/reporter)})
+  (with-out-str (mi/instrument! {:report (pretty/thrower)}))
   (f)
-  (mi/unstrument!))
+  (with-out-str (mi/unstrument!)))
