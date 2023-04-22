@@ -3,7 +3,7 @@
             [honey.sql.helpers :as sql.helpers]
             [microservice-boilerplate.schemas.db :as schemas.db]
             [microservice-boilerplate.schemas.types :as schemas.types]
-            [parenthesin.components.database :as components.database]))
+            [parenthesin.components.db.jdbc-hikari :as components.database]))
 
 (defn insert-wallet-transaction
   {:malli/schema [:=> [:cat schemas.db/WalletTransaction schemas.types/DatabaseComponent] :any]}

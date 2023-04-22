@@ -2,8 +2,8 @@
   (:require [com.stuartsierra.component :as component]
             [malli.core :as m]
             [malli.experimental.time :as met]
-            [parenthesin.components.database :as components.database]
-            [parenthesin.components.http :as components.http]))
+            [parenthesin.components.db.jdbc-hikari :as components.db]
+            [parenthesin.components.http.clj-http :as components.http]))
 
 (def HttpComponent
   (m/-simple-schema
@@ -14,7 +14,7 @@
 (def DatabaseComponent
   (m/-simple-schema
    {:type :database-component
-    :pred #(satisfies? components.database/DatabaseProvider %)
+    :pred #(satisfies? components.db/DatabaseProvider %)
     :type-properties {:error/message "should satisfy parenthesin.components.database/DatabaseProvider protocol."}}))
 
 (def GenericComponent
