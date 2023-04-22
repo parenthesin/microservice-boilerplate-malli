@@ -1,6 +1,7 @@
 {:paths ["src" "resources"]
  :deps {org.clojure/clojure {:mvn/version "1.11.1"}
-        com.github.parenthesin/components {:mvn/version "0.0.1"}
+        com.github.parenthesin/components {:mvn/version "0.0.2"
+                                           :exclusions  [prismatic/schema]}
         com.github.seancorfield/honeysql {:mvn/version "2.4.1011"}
         metosin/malli {:mvn/version "0.10.4"}
         metosin/reitit-swagger {:mvn/version "0.6.0"}
