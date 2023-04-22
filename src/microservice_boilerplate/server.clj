@@ -4,7 +4,7 @@
             [parenthesin.components.config.aero :as config]
             [parenthesin.components.db.jdbc-hikari :as database]
             [parenthesin.components.http.clj-http :as http]
-            [parenthesin.components.router.reitit-schema :as router]
+            [parenthesin.components.router.reitit-malli :as router]
             [parenthesin.components.server.reitit-pedestal-jetty :as webserver]
             [parenthesin.helpers.logs :as logs]
             [parenthesin.helpers.migrations :as migrations])
