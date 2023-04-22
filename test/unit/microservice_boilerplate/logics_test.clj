@@ -7,9 +7,9 @@
             [microservice-boilerplate.adapters :as adapters]
             [microservice-boilerplate.logics :as logics]
             [microservice-boilerplate.schemas.db :as schemas.db]
-            [parenthesin.utils :as u]))
+            [parenthesin.helpers.malli :as helpers.malli]))
 
-(use-fixtures :once u/with-malli-intrumentation)
+(use-fixtures :once helpers.malli/with-intrumentation)
 
 (deftest uuid-from-string-test
   (testing "should generate the same uuid based on the seeded string"

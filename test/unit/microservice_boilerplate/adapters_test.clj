@@ -9,9 +9,9 @@
             [microservice-boilerplate.adapters :as adapters]
             [microservice-boilerplate.schemas.db :as schemas.db]
             [microservice-boilerplate.schemas.wire-in :as schemas.wire-in]
-            [parenthesin.utils :as u]))
+            [parenthesin.helpers.malli :as helpers.malli]))
 
-(use-fixtures :once u/with-malli-intrumentation)
+(use-fixtures :once helpers.malli/with-intrumentation)
 
 (deftest inst->formated-string
   (testing "should adapt clojure/instant to formated string"

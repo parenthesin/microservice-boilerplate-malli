@@ -3,15 +3,15 @@
             [com.stuartsierra.component :as component]
             [integration.microservice-boilerplate.util :as util]
             [microservice-boilerplate.db :as db]
-            [parenthesin.components.config :as components.config]
-            [parenthesin.components.database :as components.database]
-            [parenthesin.utils :as u]
+            [parenthesin.components.config.aero :as components.config]
+            [parenthesin.components.db.jdbc-hikari :as components.database]
+            [parenthesin.helpers.malli :as helpers.malli]
             [state-flow.api :refer [defflow]]
             [state-flow.assertions.matcher-combinators :refer [match?]]
             [state-flow.core :as state-flow :refer [flow]]
             [state-flow.state :as state]))
 
-(use-fixtures :once u/with-malli-intrumentation)
+(use-fixtures :once helpers.malli/with-intrumentation)
 
 (defn- create-and-start-components! []
   (component/start-system
