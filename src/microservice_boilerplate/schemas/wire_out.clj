@@ -1,13 +1,13 @@
 (ns microservice-boilerplate.schemas.wire-out)
 
-(def RateFloat
+(def TickerInfo
   [:map
-   [:rate_float number?]])
+   [:c [:vector number?]]])
 
-(def USD
+(def XXBTZUSD
   [:map
-   [:USD RateFloat]])
+   [:XXBTZUSD TickerInfo]])
 
-(def CoinDeskResponse
+(def KrakenResponse
   [:map
-   [:bpi USD]])
+   [:result XXBTZUSD]])

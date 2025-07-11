@@ -22,10 +22,11 @@
       (.format (DateTimeFormatter/ofPattern str-format))))
 
 (defn wire->usd-price
-  {:malli/schema [:=> [:cat schemas.wire-out/CoinDeskResponse] number?]}
+  {:malli/schema [:=> [:cat schemas.wire-out/KrakenResponse] number?]}
   [wire]
   (-> wire
-      (get-in [:bpi :USD :rate_float])
+      (get-in [:result :XXBTZUSD :c])
+      first
       bigdec))
 
 (defn ^:private wire-in->db

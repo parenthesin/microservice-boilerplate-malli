@@ -6,7 +6,7 @@
 (defn get-btc-usd-price
   {:malli/schema [:=> [:cat schemas.types/HttpComponent] number?]}
   [http]
-  (->> {:url "https://api.coindesk.com/v1/bpi/currentprice.json"
+  (->> {:url "https://api.kraken.com/0/public/Ticker?pair=XBTUSD"
         :as :json
         :method :get}
        (components.http/request http)
