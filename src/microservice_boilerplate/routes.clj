@@ -13,6 +13,12 @@
    ["/wallet"
     {:swagger {:tags ["wallet"]}}
 
+    ["/current-btc-usd"
+     {:get {:summary "get current btc price in usd"
+            :responses {200 {:body schemas.wire-in/BtcUsdPair}
+                        500 {:body :string}}
+            :handler ports.http-in/get-btc-usd-price}}]
+
     ["/history"
      {:get {:summary "get all wallet entries and current total"
             :responses {200 {:body schemas.wire-in/WalletHistory}
