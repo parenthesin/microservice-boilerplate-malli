@@ -12,6 +12,11 @@
    [:entries [:vector schemas.db/WalletEntry]]
    [:usd-price pos?]])
 
+(defn get-btc-usd-price
+  {:malli/schema [:=> [:cat schemas.types/Components] pos?]}
+  [{:keys [http]}]
+  (http-out/get-btc-usd-price http))
+
 (defn get-wallet
   {:malli/schema [:=> [:cat schemas.types/Components] WalletHistory]}
   [{:keys [http database]}]

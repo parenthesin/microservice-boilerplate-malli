@@ -20,3 +20,7 @@
    [:entries [:vector WalletEntry]]
    [:total-btc number?]
    [:total-current-usd number?]])
+
+(def BtcUsdPair
+  {:btc-amount number?
+   :usd-amount number?})
